@@ -2,6 +2,15 @@
   display: block;
   width: 142px;
   height: 33px;
+  background-image: url('../../../images/logo.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: opacity .3s ease-out;
+}
+
+.header__logo:hover {
+  opacity: .6;
 }
 
 @media screen and (max-width:640px) {

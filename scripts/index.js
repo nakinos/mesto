@@ -15,12 +15,10 @@ function onEditButtonClick() {
   jobInput.value = job.textContent;
 
   popup.classList.add('popup_opened');
-  body.classList.add('body_popup-opened');
 }
 
 function onCloseFormButtonClick() {
   popup.classList.remove('popup_opened');
-  body.classList.remove('body_popup-opened');
 }
 
 function formSubmitHandler (evt) {

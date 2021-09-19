@@ -9,7 +9,7 @@
   <body class="body">
     <div class="root">
       <header class="header">
-        <img src="./images/logo.svg" alt="Логотип Mesto Russia" class="header__logo">
+        <a href="#" target="_blank" rel="noopener" class="header__logo"></a>
       </header>
       <main>
         <section class="profile root__section">
@@ -20,53 +20,53 @@
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <p class="profile__job">Исследователь океана</p>
               </div>
-              <button class="profile__edit-button"></button>
+              <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
             </div>
           </div>
-          <button class="profile__add-button"></button>
+          <button class="profile__add-button" type="button" aria-label="Добавить"></button>
         </section>
         <section class="places root__section">
           <ul class="places__list">
-            <li class="places__item place">
+            <li class="place">
               <img src="./images/karachaevsk.jpg" alt="Церковь Карачаевск" class="place__image">
               <div class="place__info">
                 <h2 class="place__title">Карачаевск</h2>
-                <button class="place__like-button"></button>
+                <button class="place__like-button" type="button" aria-label="Лайк"></button>
               </div>
             </li>
-            <li class="places__item place">
+            <li class="place">
               <img src="./images/elbrus.jpg" alt="Пустынный пейзаж" class="place__image">
               <div class="place__info">
                 <h2 class="place__title">Гора Эльбрус</h2>
-                <button class="place__like-button"></button>
+                <button class="place__like-button" type="button" aria-label="Лайк"></button>
               </div>
             </li>
-            <li class="places__item place">
+            <li class="place">
               <img src="./images/dombai.jpg" alt="Горы Домбай" class="place__image">
               <div class="place__info">
                 <h2 class="place__title">Домбай</h2>
-                <button class="place__like-button"></button>
+                <button class="place__like-button" type="button" aria-label="Лайк"></button>
               </div>
             </li>
-            <li class="places__item place">
+            <li class="place">
               <img src="./images/elbrus.jpg" alt="Пустынный пейзаж" class="place__image">
               <div class="place__info">
                 <h2 class="place__title">Гора Эльбрус</h2>
-                <button class="place__like-button"></button>
+                <button class="place__like-button" type="button" aria-label="Лайк"></button>
               </div>
             </li>
-            <li class="places__item place">
+            <li class="place">
               <img src="./images/dombai.jpg" alt="Горы Домбай" class="place__image">
               <div class="place__info">
                 <h2 class="place__title">Домбай</h2>
-                <button class="place__like-button"></button>
+                <button class="place__like-button" type="button" aria-label="Лайк"></button>
               </div>
             </li>
-            <li class="places__item place">
+            <li class="place">
               <img src="./images/karachaevsk.jpg" alt="Церковь Карачаевск" class="place__image">
               <div class="place__info">
                 <h2 class="place__title">Карачаево-Черкессия</h2>
-                <button class="place__like-button"></button>
+                <button class="place__like-button" type="button" aria-label="Лайк"></button>
               </div>
             </li>
           </ul>
@@ -75,19 +75,19 @@
       <footer class="footer root__section">
         <p class="footer__text">&copy; 2021 Mesto Russia</p>
       </footer>
-      <section class="popup">
+      <article class="popup">
         <div class="popup__container">
-          <button class="popup__close-button"></button>
+          <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
           <form class="popup__form">
             <h2 class="popup__title">Редактировать профиль</h2>
             <fieldset class="popup__input-container">
-              <input class="popup__input popup__input_type_name" type="text" required />
-              <input class="popup__input popup__input_type_job" type="text" required />
+              <input class="popup__input popup__input_type_name" type="text" name="name" required />
+              <input class="popup__input popup__input_type_job" type="text" name="job" required />
             </fieldset>
             <button class="popup__submit-button" type="submit">Сохранить</button>
           </form>
         </div>
-      </section>
+      </article>
     </div>
     <script src="./scripts/index.js"></script>
   </body>
