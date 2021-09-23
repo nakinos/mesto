@@ -24,6 +24,7 @@
 @import url('../blocks/places/__list/places__list.css');
 
 @import url('../blocks/place/place.css');
+@import url('../blocks/place/__delete-button/place__delete-button.css');
 @import url('../blocks/place/__info/place__info.css');
 @import url('../blocks/place/__image/place__image.css');
 @import url('../blocks/place/__title/place__title.css');
@@ -38,6 +39,10 @@
 @import url('../blocks/popup/__input-container/popup__input-container.css');
 @import url('../blocks/popup/__input/popup__input.css');
 @import url('../blocks/popup/__submit-button/popup__submit-button.css');
+@import url('../blocks/popup/__image-container/popup__image-container.css');
+@import url('../blocks/popup/__figure/popup__figure.css');
+@import url('../blocks/popup/__image/popup__image.css');
+@import url('../blocks/popup/__image-description/popup__image-description.css');
 
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__text/footer__text.css');

@@ -27,55 +27,13 @@
         </section>
         <section class="places root__section">
           <ul class="places__list">
-            <li class="place">
-              <img src="./images/karachaevsk.jpg" alt="Церковь Карачаевск" class="place__image">
-              <div class="place__info">
-                <h2 class="place__title">Карачаевск</h2>
-                <button class="place__like-button" type="button" aria-label="Лайк"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img src="./images/elbrus.jpg" alt="Пустынный пейзаж" class="place__image">
-              <div class="place__info">
-                <h2 class="place__title">Гора Эльбрус</h2>
-                <button class="place__like-button" type="button" aria-label="Лайк"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img src="./images/dombai.jpg" alt="Горы Домбай" class="place__image">
-              <div class="place__info">
-                <h2 class="place__title">Домбай</h2>
-                <button class="place__like-button" type="button" aria-label="Лайк"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img src="./images/elbrus.jpg" alt="Пустынный пейзаж" class="place__image">
-              <div class="place__info">
-                <h2 class="place__title">Гора Эльбрус</h2>
-                <button class="place__like-button" type="button" aria-label="Лайк"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img src="./images/dombai.jpg" alt="Горы Домбай" class="place__image">
-              <div class="place__info">
-                <h2 class="place__title">Домбай</h2>
-                <button class="place__like-button" type="button" aria-label="Лайк"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img src="./images/karachaevsk.jpg" alt="Церковь Карачаевск" class="place__image">
-              <div class="place__info">
-                <h2 class="place__title">Карачаево-Черкессия</h2>
-                <button class="place__like-button" type="button" aria-label="Лайк"></button>
-              </div>
-            </li>
           </ul>
         </section>
       </main>
       <footer class="footer root__section">
         <p class="footer__text">&copy; 2021 Mesto Russia</p>
       </footer>
-      <article class="popup">
+      <article class="popup popup_type_edit-profile">
         <div class="popup__container">
           <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
           <form class="popup__form">
@@ -88,7 +46,39 @@
           </form>
         </div>
       </article>
+      <article class="popup popup_type_add-place">
+        <div class="popup__container">
+          <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+          <form class="popup__form">
+            <h2 class="popup__title">Новое место</h2>
+            <fieldset class="popup__input-container">
+              <input class="popup__input popup__input_type_place-name" type="text" name="placeName" placeholder="Название" required />
+              <input class="popup__input popup__input_type_image-url" type="text" name="url" placeholder="Ссылка на картинку" required />
+            </fieldset>
+            <button class="popup__submit-button" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </article>
+      <article class="popup popup_type_show-image">
+        <div class="popup__image-container">
+          <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+          <figure class="popup__figure">
+            <img src="#" alt="" class="popup__image">
+            <figcaption class="popup__image-description"></figcaption>
+          </figure>
+        </div>
+      </article>
     </div>
+    <template id="place-template">
+      <li class="place">
+        <button class="place__delete-button" type="button" aria-label="Удалить"></button>
+        <img src="#" alt="" class="place__image">
+        <div class="place__info">
+          <h2 class="place__title"></h2>
+          <button class="place__like-button" type="button" aria-label="Лайк"></button>
+        </div>
+      </li>
+    </template>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
