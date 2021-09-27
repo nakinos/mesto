@@ -50,27 +50,32 @@ const closeImageButton = imagePopup.querySelector('.popup__close-button');
 
 const togglePopup = popup => popup.classList.toggle('popup_opened');
 
-const addPlace = (name, link) => {
-  const placeTemplate = document.querySelector('#place-template').content;
-  const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
-  const placeImage = placeElement.querySelector('.place__image');
-  placeImage.src = link;
-  placeImage.alt = name;
-  placeElement.querySelector('.place__title').textContent = name;
+const createCard = (name, link) => {
+  const cardTemplate = document.querySelector('#place-template').content;
+  const cardElement = cardTemplate.querySelector('.place').cloneNode(true);
+  const cardImage = cardElement.querySelector('.place__image');
+  cardImage.src = link;
+  cardImage.alt = name;
+  cardElement.querySelector('.place__title').textContent = name;
 
-  placeElement.querySelector('.place__delete-button').addEventListener('click', event =>
+  cardElement.querySelector('.place__delete-button').addEventListener('click', event =>
     event.target.closest('.place').remove());
 
-  placeElement.querySelector('.place__like-button').addEventListener('click', event =>
+  cardElement.querySelector('.place__like-button').addEventListener('click', event =>
     event.target.classList.toggle('place__like-button_active'));
 
-  placeImage.addEventListener('click', event => {
+  cardImage.addEventListener('click', event => {
     imageElement.src = event.target.src;
     imageElement.alt = event.target.alt;
     imageDescElement.textContent = event.target.alt;
     togglePopup(imagePopup);
   });
 
+  return cardElement;
+};
+
+const addPlace = (name, link) => {
+  const placeElement = createCard(name, link);
   placesList.prepend(placeElement);
 };
 
@@ -93,6 +98,8 @@ addPlaceButton.addEventListener('click', () => togglePopup(addPlacePopup));
 addPlaceFormElement.addEventListener('submit', (event) => {
   event.preventDefault();
   addPlace(placeNameInput.value, urlInput.value);
+  placeNameInput.value = '';
+  urlInput.value = '';
   togglePopup(addPlacePopup);
 });
 closeAddPlaceButton.addEventListener('click', () => togglePopup(addPlacePopup));
