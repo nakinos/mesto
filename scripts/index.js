@@ -26,29 +26,38 @@ const initialCards = [
 ];
 
 const placesList = document.querySelector('.places__list');
-const name = document.querySelector('.profile__name');
-const job = document.querySelector('.profile__job');
+const nameElement = document.querySelector('.profile__name');
+const jobElement = document.querySelector('.profile__job');
 const editProfileButton = document.querySelector('.profile__edit-button');
 const addPlaceButton = document.querySelector('.profile__add-button');
 
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
-const editProfileFormElement = editProfilePopup.querySelector('.popup__form');
+const editProfileFormElement = document.forms.editProfile;
 const nameInput = editProfileFormElement.querySelector('.popup__input_type_name');
 const jobInput = editProfileFormElement.querySelector('.popup__input_type_job');
-const closeEditProfileButton = editProfilePopup.querySelector('.popup__close-button');
 
 const addPlacePopup = document.querySelector('.popup_type_add-place');
-const addPlaceFormElement = addPlacePopup.querySelector('.popup__form');
+const addPlaceFormElement = document.forms.addPlace;
 const placeNameInput = addPlaceFormElement.querySelector('.popup__input_type_place-name');
 const urlInput = addPlaceFormElement.querySelector('.popup__input_type_image-url');
-const closeAddPlaceButton = addPlacePopup.querySelector('.popup__close-button');
 
 const imagePopup = document.querySelector('.popup_type_show-image');
 const imageElement = imagePopup.querySelector('.popup__image');
 const imageDescElement = imagePopup.querySelector('.popup__image-description');
-const closeImageButton = imagePopup.querySelector('.popup__close-button');
 
 const togglePopup = popup => popup.classList.toggle('popup_opened');
+
+const closePopup = popup => {
+  document.removeEventListener('keydown', handleEsc);
+  togglePopup(popup);
+};
+
+const handleEsc = evt => {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+};
 
 const createCard = (name, link) => {
   const cardTemplate = document.querySelector('#place-template').content;
@@ -65,6 +74,7 @@ const createCard = (name, link) => {
     event.target.classList.toggle('place__like-button_active'));
 
   cardImage.addEventListener('click', event => {
+    document.addEventListener('keydown', handleEsc);
     imageElement.src = event.target.src;
     imageElement.alt = event.target.alt;
     imageDescElement.textContent = event.target.alt;
@@ -82,26 +92,48 @@ const addPlace = (name, link) => {
 initialCards.forEach(item => addPlace(item.name, item.link));
 
 editProfileButton.addEventListener('click', () => {
-  nameInput.value = name.textContent;
-  jobInput.value = job.textContent;
-  togglePopup(editProfilePopup)
-});
-editProfileFormElement.addEventListener('submit', (event) => {
-  event.preventDefault();
-  name.textContent = nameInput.value;
-  job.textContent = jobInput.value;
+  document.addEventListener('keydown', handleEsc);
+  nameInput.value = nameElement.textContent;
+  jobInput.value = jobElement.textContent;
+
+  const inputList = Array.from(editProfilePopup.querySelectorAll(validationConfig.inputSelector));
+  const buttonElement = editProfilePopup.querySelector(validationConfig.submitButtonSelector);
+  inputList.forEach(inputElement => {
+    checkInputValidity(editProfilePopup, inputElement, validationConfig);
+  });
+  toggleButtonState(inputList, buttonElement, validationConfig);
+
   togglePopup(editProfilePopup);
 });
-closeEditProfileButton.addEventListener('click', () => togglePopup(editProfilePopup));
+editProfileFormElement.addEventListener('submit', evt => {
+  evt.preventDefault();
+  nameElement.textContent = nameInput.value;
+  jobElement.textContent = jobInput.value;
+  closePopup(editProfilePopup);
+});
 
-addPlaceButton.addEventListener('click', () => togglePopup(addPlacePopup));
-addPlaceFormElement.addEventListener('submit', (event) => {
-  event.preventDefault();
-  addPlace(placeNameInput.value, urlInput.value);
-  placeNameInput.value = '';
-  urlInput.value = '';
+addPlaceButton.addEventListener('click', () => {
+  document.addEventListener('keydown', handleEsc);
+
+  const inputList = Array.from(addPlacePopup.querySelectorAll(validationConfig.inputSelector));
+  const buttonElement = addPlacePopup.querySelector(validationConfig.submitButtonSelector);
+  toggleButtonState(inputList, buttonElement, validationConfig);
+
   togglePopup(addPlacePopup);
 });
-closeAddPlaceButton.addEventListener('click', () => togglePopup(addPlacePopup));
+addPlaceFormElement.addEventListener('submit', evt => {
+  evt.preventDefault();
+  addPlace(placeNameInput.value, urlInput.value);
+  closePopup(addPlacePopup);
+  addPlaceFormElement.reset();
+});
 
-closeImageButton.addEventListener('click', () => togglePopup(imagePopup));
+const popups = Array.from(document.querySelectorAll('.popup'));
+popups.forEach(popup => {
+  const closeButton = popup.querySelector('.popup__close-button');
+  closeButton.addEventListener('click', () => closePopup(popup));
+
+  popup.addEventListener('click', evt => {
+    if (evt.target === evt.currentTarget) closePopup(popup);
+  });
+});
