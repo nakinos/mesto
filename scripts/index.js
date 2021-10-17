@@ -33,19 +33,28 @@ const addPlaceButton = document.querySelector('.profile__add-button');
 
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
 const editProfileFormElement = document.forms.editProfile;
+const editProfileInputList = Array.from(editProfilePopup.querySelectorAll(validationConfig.inputSelector));
 const nameInput = editProfileFormElement.querySelector('.popup__input_type_name');
 const jobInput = editProfileFormElement.querySelector('.popup__input_type_job');
+const editProfileSubmitButton = editProfilePopup.querySelector(validationConfig.submitButtonSelector);
 
 const addPlacePopup = document.querySelector('.popup_type_add-place');
 const addPlaceFormElement = document.forms.addPlace;
+const addPlaceInputList = Array.from(addPlacePopup.querySelectorAll(validationConfig.inputSelector));
 const placeNameInput = addPlaceFormElement.querySelector('.popup__input_type_place-name');
 const urlInput = addPlaceFormElement.querySelector('.popup__input_type_image-url');
+const addPlaceSubmitButton = addPlacePopup.querySelector(validationConfig.submitButtonSelector);
 
 const imagePopup = document.querySelector('.popup_type_show-image');
 const imageElement = imagePopup.querySelector('.popup__image');
 const imageDescElement = imagePopup.querySelector('.popup__image-description');
 
 const togglePopup = popup => popup.classList.toggle('popup_opened');
+
+const openPopup = popup => {
+  document.addEventListener('keydown', handleEsc);
+  togglePopup(popup);
+}
 
 const closePopup = popup => {
   document.removeEventListener('keydown', handleEsc);
@@ -74,11 +83,10 @@ const createCard = (name, link) => {
     event.target.classList.toggle('place__like-button_active'));
 
   cardImage.addEventListener('click', event => {
-    document.addEventListener('keydown', handleEsc);
     imageElement.src = event.target.src;
     imageElement.alt = event.target.alt;
     imageDescElement.textContent = event.target.alt;
-    togglePopup(imagePopup);
+    openPopup(imagePopup);
   });
 
   return cardElement;
@@ -92,18 +100,15 @@ const addPlace = (name, link) => {
 initialCards.forEach(item => addPlace(item.name, item.link));
 
 editProfileButton.addEventListener('click', () => {
-  document.addEventListener('keydown', handleEsc);
   nameInput.value = nameElement.textContent;
   jobInput.value = jobElement.textContent;
 
-  const inputList = Array.from(editProfilePopup.querySelectorAll(validationConfig.inputSelector));
-  const buttonElement = editProfilePopup.querySelector(validationConfig.submitButtonSelector);
-  inputList.forEach(inputElement => {
+  editProfileInputList.forEach(inputElement => {
     checkInputValidity(editProfilePopup, inputElement, validationConfig);
   });
-  toggleButtonState(inputList, buttonElement, validationConfig);
+  toggleButtonState(editProfileInputList, editProfileSubmitButton, validationConfig);
 
-  togglePopup(editProfilePopup);
+  openPopup(editProfilePopup);
 });
 editProfileFormElement.addEventListener('submit', evt => {
   evt.preventDefault();
@@ -113,13 +118,8 @@ editProfileFormElement.addEventListener('submit', evt => {
 });
 
 addPlaceButton.addEventListener('click', () => {
-  document.addEventListener('keydown', handleEsc);
-
-  const inputList = Array.from(addPlacePopup.querySelectorAll(validationConfig.inputSelector));
-  const buttonElement = addPlacePopup.querySelector(validationConfig.submitButtonSelector);
-  toggleButtonState(inputList, buttonElement, validationConfig);
-
-  togglePopup(addPlacePopup);
+  toggleButtonState(addPlaceInputList, addPlaceSubmitButton, validationConfig);
+  openPopup(addPlacePopup);
 });
 addPlaceFormElement.addEventListener('submit', evt => {
   evt.preventDefault();
