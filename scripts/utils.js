@@ -17,3 +17,6 @@ export const closePopup = popup => {
   togglePopup(popup);
 };
 
+export const imagePopup = document.querySelector('.popup_type_show-image');
+export const imgElement = imagePopup.querySelector('.popup__image');
+export const imgDescElement = imagePopup.querySelector('.popup__image-description');

@@ -1,10 +1,6 @@
-import { openPopup } from './utils.js';
+import { openPopup, imagePopup, imgElement, imgDescElement } from './utils.js';
 
 export class Card {
-  _popup = document.querySelector('.popup_type_show-image');
-  _popupImage = this._popup.querySelector('.popup__image');
-  _popupImageDesc = this._popup.querySelector('.popup__image-description');
-
   constructor(data, templateSelector) {
     this._name = data.name;
     this._link = data.link;
@@ -35,11 +31,8 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._cardImage.addEventListener('click', evt => {
-      this._popupImage.src = evt.target.src;
-      this._popupImage.alt = evt.target.alt;
-      this._popupImageDesc.textContent = evt.target.alt;
-      openPopup(this._popup);
+    this._cardImage.addEventListener('click', () => {
+      this._handleImageClick();
     });
 
     this._element.querySelector('.place__delete-button').addEventListener('click', evt => {
@@ -49,6 +42,13 @@ export class Card {
     this._element.querySelector('.place__like-button').addEventListener('click', evt => {
       this._handleLikeClick(evt);
     });
+  }
+
+  _handleImageClick() {
+    imgElement.src = this._link;
+    imgElement.alt = this._name;
+    imgDescElement.textContent = this._name;
+    openPopup(imagePopup);
   }
 
   _handleDeleteClick(evt) {

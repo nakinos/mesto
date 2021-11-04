@@ -38,6 +38,8 @@ const validationConfig = {
   errorClass: 'popup__error_visible'
 };
 
+const placeTemplateSelector = '#place-template';
+
 const placesList = document.querySelector('.places__list');
 const nameElement = document.querySelector('.profile__name');
 const jobElement = document.querySelector('.profile__job');
@@ -61,13 +63,13 @@ editProfileFormValidator.enableValidation();
 const addPlaceFormValidator = new FormValidator(validationConfig, addPlaceFormElement);
 addPlaceFormValidator.enableValidation();
 
-const addPlace = (data) => {
-  const card = new Card(data, '#place-template');
+const addPlace = (data, templateSelector) => {
+  const card = new Card(data, templateSelector);
   const cardElement = card.generateCard();
   placesList.prepend(cardElement);
 };
 
-initialCards.forEach(item => addPlace(item));
+initialCards.forEach(data => addPlace(data, placeTemplateSelector));
 
 editProfileButton.addEventListener('click', () => {
   nameInput.value = nameElement.textContent;
@@ -93,7 +95,7 @@ addPlaceButton.addEventListener('click', () => {
 });
 addPlaceFormElement.addEventListener('submit', evt => {
   evt.preventDefault();
-  addPlace({ name: placeNameInput.value, link: urlInput.value });
+  addPlace({ name: placeNameInput.value, link: urlInput.value }, placeTemplateSelector);
   closePopup(addPlacePopup);
   addPlaceFormElement.reset();
 });
