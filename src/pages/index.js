@@ -26,7 +26,7 @@ const section = new Section({
   items: initialCards,
   renderer: (item) => {
     const card = new Card(item, cardTemplateSelector, () => imagePopup.open(item));
-    section.addItem(card.generateCard());
+    return card.generateCard();
   }
 }, '.places__list');
 section.renderItems();
@@ -42,21 +42,18 @@ editProfileButton.addEventListener('click', () => {
   nameInput.value = name;
   jobInput.value = bio;
 
-  editProfileFormValidator.clearInputError();
-  editProfileFormValidator.toggleButtonState();
+  editProfileFormValidator.resetValidation();
   editProfilePopup.open();
 });
 
 const addCardPopup = new PopupWithForm('.popup_type_add-place', (inputValues) => {
-  const newCard = new Card(inputValues, cardTemplateSelector, () => imagePopup.open(inputValues));
-  section.addItem(newCard.generateCard());
+  section.addItem(inputValues);
   addCardPopup.close();
 });
 addCardPopup.setEventListeners();
 
 addPlaceButton.addEventListener('click', () => {
-  addPlaceFormValidator.clearInputError();
-  addPlaceFormValidator.toggleButtonState();
+  addPlaceFormValidator.resetValidation();
   addCardPopup.open();
 });
 
