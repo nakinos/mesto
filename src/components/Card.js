@@ -11,6 +11,7 @@ export default class Card {
     this._handleLikeClick = handleLikeClick;
     this._handleDeleteIconClick = handleDeleteIconClick;
     this._isLiked = this._likes.some(like => like._id === this._userId);
+    this.updateLikes = this.updateLikes.bind(this);
   }
 
   generateCard() {
@@ -60,8 +61,8 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._cardImage.addEventListener('click', () => this._handleCardClick());
-    this._deleteButtonElement.addEventListener('click', () => this._handleDeleteIconClick(this.id, this._element));
-    this._likeButtonElement.addEventListener('click', () => this._handleLikeClick(this.id));
+    this._cardImage.addEventListener('click', () => this._handleCardClick(this));
+    this._deleteButtonElement.addEventListener('click', () => this._handleDeleteIconClick(this));
+    this._likeButtonElement.addEventListener('click', () => this._handleLikeClick(this));
   }
 }

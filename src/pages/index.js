@@ -28,36 +28,36 @@ const api = new Api({
   }
 });
 
-function handleCardClick() {
-  imagePopup.open({ name: this._name, link: this._link});
+function handleCardClick({ _name, _link }) {
+  imagePopup.open({ name: _name, link: _link });
 }
 
-function handleLikeClick(card) {
-  if (this._isLiked) {
-    api.unlikeCard(card)
+function handleLikeClick({ id, _isLiked, updateLikes }) {
+  if (_isLiked) {
+    api.unlikeCard(id)
       .then(res => {
-        this.updateLikes(res);
+        updateLikes(res);
       })
       .catch(err => console.log(err));
   } else {
-    api.likeCard(card)
+    api.likeCard(id)
       .then(res => {
-        this.updateLikes(res);
+        updateLikes(res);
       })
       .catch(err => console.log(err));
   }
 }
 
-function handleDeleteIconClick(card, cardElement) {
-  submitPopup.setSubmitCallback(card => {
-    api.deleteCard(card)
+function handleDeleteIconClick({ id, _element }) {
+  submitPopup.setSubmitCallback(id => {
+    api.deleteCard(id)
       .then(() => {
-        cardElement.remove();
+        _element.remove();
         submitPopup.close();
       })
       .catch(err => console.log(err));
    });
-  submitPopup.open(card);
+  submitPopup.open(id);
 };
 
 const userInfo = new UserInfo({ nameSelector: '.profile__name', aboutSelector: '.profile__job', avatarSelector: '.profile__avatar' });
